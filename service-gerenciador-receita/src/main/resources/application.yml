@@ -1,0 +1,11 @@
+kafka:
+  server: localhost:9092
+  topicos:
+    nova-receita: "NOVA_RECEITA"
+    retencao-receita: "RETENCAO_RECEITA"
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${kafka.server}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+kafka:
+  server: localhost:9092
+  topicos:
+    nova-receita: "NOVA_RECEITA"
+    retencao-receita: "RETENCAO_RECEITA"
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: ${kafka.server}
+      group-id: service-nova-receita
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      bootstrap-servers: ${kafka.server}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
